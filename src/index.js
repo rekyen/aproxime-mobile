@@ -1,23 +1,15 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
+import 'react-native-gesture-handler';
 import React from 'react';
-import {SafeAreaView, Text, StatusBar} from 'react-native';
+import { StatusBar } from 'react-native';
+import './config/ReactotronConfig';
 
-console.log('Hello world!');
+import Routes from './routes';
 
-const App: () => React$Node = () => {
+const App = () => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Text>Hello World!</Text>
-      </SafeAreaView>
+      <StatusBar barStyle="dark-content" backgroundColor="#3d3d3d" />
+      <Routes />
     </>
   );
 };
