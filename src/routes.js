@@ -2,25 +2,45 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
-import Main from './pages/Main';
-import User from './pages/User';
+import SingIn from '~/pages/SingIn';
+import SingUp from '~/pages/SingUp';
 
 const Stack = createStackNavigator();
+let isLoggedIn = false;
 
 function Routes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="SingIn"
         screenOptions={navigationOptions}>
-        <Stack.Screen name="Home" component={Main} options={homeOptions} />
-        <Stack.Screen name="Details" component={User} />
+        {isLoggedIn ? (
+          <Stack.Screen name="SingUp" component={SingUp} />
+        ) : (
+          // <>
+          //   <Stack.Screen name="Home" component={HomeScreen} />
+          //   <Stack.Screen name="Settings" component={SettingsScreen} />
+          // </>
+          <>
+            <Stack.Screen
+              name="SingIn"
+              component={SingIn}
+              options={singInOptions}
+            />
+            <Stack.Screen
+              name="SingUp"
+              component={SingUp}
+              options={singUpOptions}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 const navigationOptions = {
+  animationEnabled: true,
   headerBackTitleVisible: false,
   headerTitleAlign: 'center',
   headerStyle: {
@@ -32,6 +52,14 @@ const navigationOptions = {
   },
 };
 
-const homeOptions = { title: 'aproxime' };
+const singInOptions = {
+  title: 'aproxime',
+  headerShown: false,
+};
+
+const singUpOptions = {
+  title: 'aproxime',
+  headerShown: false,
+};
 
 export default Routes;
