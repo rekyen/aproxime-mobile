@@ -1,5 +1,8 @@
-import React, { useRef } from 'react';
-import { KeyboardAvoidingView } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { KeyboardAvoidingView, View, Alert } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { signUpRequest } from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -11,14 +14,27 @@ import {
 } from './styles';
 
 import Background from '~/components/Background';
-import { View } from 'react-native';
 
 export default function SignUp({ navigation: { goBack } }) {
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
-  function handleSubmit() {}
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  function handleSubmit() {
+    if (password === confirmPassword) {
+      dispatch(signUpRequest(name, email, password));
+    } else {
+      //Alert.alert('Registration error', 'Verify your access data');
+    }
+  }
 
   return (
     <Background>
@@ -34,6 +50,8 @@ export default function SignUp({ navigation: { goBack } }) {
                 placeholder="User name"
                 onSubmitEditing={() => emailRef.current.focus()}
                 returnKeyType="next"
+                value={name}
+                onChangeText={setName}
               />
               <FormInput
                 icon="mail-outline"
@@ -44,6 +62,8 @@ export default function SignUp({ navigation: { goBack } }) {
                 ref={emailRef}
                 onSubmitEditing={() => passwordRef.current.focus()}
                 returnKeyType="next"
+                value={email}
+                onChangeText={setEmail}
               />
               <FormInput
                 icon="lock-outline"
@@ -52,6 +72,8 @@ export default function SignUp({ navigation: { goBack } }) {
                 ref={passwordRef}
                 onSubmitEditing={() => confirmPasswordRef.current.focus()}
                 returnKeyType="next"
+                value={password}
+                onChangeText={setPassword}
               />
               <FormInput
                 icon="lock-outline"
@@ -60,10 +82,14 @@ export default function SignUp({ navigation: { goBack } }) {
                 ref={confirmPasswordRef}
                 returnKeyType="send"
                 onSubmitEditing={handleSubmit}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
               />
             </View>
             <View>
-              <PrimaryButton onPress={() => {}}>Create</PrimaryButton>
+              <PrimaryButton loading={loading} onPress={handleSubmit}>
+                Create
+              </PrimaryButton>
               <SecondaryButton
                 onPress={() => {
                   goBack();

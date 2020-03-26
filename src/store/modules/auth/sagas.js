@@ -3,7 +3,7 @@ import { takeLatest, call, put, all } from 'redux-saga/effects';
 
 import api from '~/services/api';
 
-import { signInSuccess, signInFailure } from './actions';
+import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -29,7 +29,7 @@ export function* signIn({ payload }) {
   } catch (err) {
     Alert.alert('Authentication error', 'Verify your access data');
 
-    yield put(signInFailure());
+    yield put(signFailure());
   }
 }
 
@@ -47,7 +47,7 @@ export function* signUp({ payload }) {
   } catch (err) {
     Alert.alert('Registration error', 'Verify your access data');
 
-    yield put(signInFailure());
+    yield put(signFailure());
   }
 }
 

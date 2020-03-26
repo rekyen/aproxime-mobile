@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { KeyboardAvoidingView, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signInRequest } from '~/store/modules/auth/actions';
 
@@ -17,6 +17,8 @@ import Background from '~/components/Background';
 
 export default function SignIn({ navigation }) {
   const dispath = useDispatch();
+  const loading = useSelector(state => state.auth.loading);
+
   const passwordRef = useRef();
 
   const [email, setEmail] = useState('');
@@ -57,7 +59,9 @@ export default function SignIn({ navigation }) {
               />
             </View>
             <View>
-              <PrimaryButton onPress={handleSubmit}>Enter</PrimaryButton>
+              <PrimaryButton loading={loading} onPress={handleSubmit}>
+                Enter
+              </PrimaryButton>
               <SecondaryButton
                 onPress={() => {
                   navigation.navigate('SingUp');
