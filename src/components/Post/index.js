@@ -24,15 +24,13 @@ export default function Post({ data }) {
             <PostIconActive />
           </ImageArea>
           <Content>
-            <Title>Teste</Title>
-            <Message numberOfLines={3}>
-              tentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContetentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentntContentContentContentContentContentContenttentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContentContent
-            </Message>
+            <Title>{data.title}</Title>
+            <Message numberOfLines={3}>{data.content}</Message>
           </Content>
         </Body>
         <Status>
-          <Distance>34{data} days</Distance>
-          <Time>1{data}.2 km</Time>
+          <Distance>0 days</Distance>
+          <Time>0 km</Time>
         </Status>
       </Container>
       <Separator />

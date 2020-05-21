@@ -1,20 +1,31 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import api from '~/services/api';
 
 import { Container, List } from './styles';
 
 import Background from '~/components/Background';
 import Post from '~/components/Post';
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 export default function Home() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    async function loadPosts() {
+      const response = await api.get('posts');
+      const pagebleData = response.data;
+
+      setPosts(pagebleData.data);
+    }
+
+    loadPosts();
+  }, []);
+
   return (
     <Background>
       <Container>
         <List
-          data={data}
-          keyExtractor={item => String(item)}
+          data={posts}
+          keyExtractor={item => String(item._id)}
           renderItem={({ item }) => <Post data={item} />}
         />
       </Container>
